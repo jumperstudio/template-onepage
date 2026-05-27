@@ -1,6 +1,4 @@
 ---
-// Base.astro — Layout base do template One Page
-// A IA preenche as props via client.json. Não alterar a estrutura.
 import '../styles/tokens.css';
 
 interface Props {
@@ -11,7 +9,7 @@ interface Props {
   phone?: string;
   url?: string;
   keywords?: string[];
-  ogImage?: string;
+  fontPair?: string;
 }
 
 const {
@@ -22,10 +20,9 @@ const {
   phone = '',
   url = 'https://exemplo.com.br',
   keywords = [],
-  ogImage = '/assets/og-image.jpg',
+  fontPair = 'modern-bold',
 } = Astro.props;
 
-// Schema.org LocalBusiness
 const schema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -38,37 +35,33 @@ const schema = {
 ---
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-fontpair={fontPair}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow" />
 
-  <!-- SEO básico -->
   <title>{title}</title>
   <meta name="description" content={description} />
   {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 
-  <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={url} />
-  <meta property="og:image" content={ogImage} />
   <meta property="og:locale" content="pt_BR" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
-
-  <!-- Schema.org -->
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body>
+
+  <div class="scroll-progress"></div>
+
   <slot />
+
+  <script>
+    import '../scripts/motion.js';
+  </script>
 </body>
 </html>

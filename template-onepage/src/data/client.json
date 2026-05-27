@@ -3,14 +3,17 @@
     "client_id": "cli_exemplo_001",
     "template": "onepage",
     "design_system": "DS-02",
-    "primary_color": "#E85D26",
-    "secondary_color": "#1C1C1C",
+    "font_pair": "modern-bold",
+    "primary_color": "#FF4D2E",
+    "secondary_color": "#0A0A0A",
     "created_at": "2026-05-27",
     "delivery_deadline": "2026-06-05"
   },
   "business": {
     "name": "Salão Bella Vita",
-    "tagline": "Corte, cor e cuidado — tudo no mesmo lugar",
+    "tagline": "Corte, cor e cuidado em um só lugar",
+    "short_name": "Bella Vita",
+    "short_description": "Salão de bairro com método de zona sul. Análise pessoal, produtos premium e agendamento que respeita seu tempo.",
     "founded": 2018,
     "city": "Rio de Janeiro",
     "neighborhood": "Tijuca",
@@ -19,31 +22,31 @@
   "services": [
     {
       "name": "Corte feminino",
-      "description": "Corte personalizado com análise de rosto e tipo de cabelo.",
+      "description": "Análise de rosto, textura e estilo de vida. Corte que cresce bem e pede pouco salão.",
       "target": "Mulheres que querem mudança sem erro"
     },
     {
       "name": "Coloração",
-      "description": "Coloração com produtos sem amônia. Mechas, ombré e luzes.",
-      "target": "Quem quer cor sem danificar o fio"
+      "description": "Sem amônia. Mechas, ombré, balayage e luzes feitos por colorista certificada Wella.",
+      "target": "Quem quer cor sem comprometer o fio"
     },
     {
       "name": "Tratamento capilar",
-      "description": "Hidratação profunda, reconstrução e cronograma capilar.",
-      "target": "Cabelos danificados, secos ou com queda"
+      "description": "Hidratação, reconstrução e cronograma capilar para fios secos, danificados ou com queda.",
+      "target": "Cabelos que precisam de cuidado"
     },
     {
       "name": "Escova progressiva",
-      "description": "Resultado duradouro com fórmula livre de formol.",
-      "target": "Quem quer lisar sem complicação"
+      "description": "Fórmula sem formol. Resultado natural, brilho intenso, duração de 4 a 6 meses.",
+      "target": "Quem cansou da prancha"
     }
   ],
   "audience": {
-    "profile": "Mulheres entre 25 e 55 anos, classe média, moradoras da Tijuca e Vila Isabel",
+    "profile": "Mulheres entre 25 e 55 anos da Tijuca e Vila Isabel que querem um salão de bairro com nível de zona sul.",
     "differentials": [
       "Agendamento online com confirmação em até 1 hora",
       "Diagnóstico capilar gratuito na primeira visita",
-      "Produtos profissionais L'Oréal e Wella — sem mistura de marca"
+      "Apenas produtos profissionais L'Oréal e Wella"
     ],
     "what_we_dont_do": "Não fazemos extensões de cabelo nem tratamentos masculinos"
   },
@@ -53,9 +56,9 @@
     "email": "contato@bellavita.com.br",
     "address": "Rua Conde de Bonfim, 123 — Tijuca, Rio de Janeiro/RJ",
     "hours": {
-      "seg-sex": "09:00 – 19:00",
-      "sab": "09:00 – 17:00",
-      "dom": "Fechado"
+      "Seg a Sex": "09:00 – 19:00",
+      "Sábado": "09:00 – 17:00",
+      "Domingo": "Fechado"
     },
     "social": {
       "instagram": "https://instagram.com/salaobellavita",
@@ -66,27 +69,30 @@
   "assets": {
     "logo": "/assets/logo.svg",
     "photos": [
-      "/assets/foto-01.jpg",
-      "/assets/foto-02.jpg",
-      "/assets/foto-03.jpg",
-      "/assets/foto-04.jpg",
-      "/assets/foto-05.jpg",
-      "/assets/foto-06.jpg"
+      "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80",
+      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80",
+      "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1600&q=80",
+      "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=1600&q=80",
+      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600&q=80",
+      "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1600&q=80"
     ],
     "testimonials": [
       {
         "name": "Fernanda R.",
-        "text": "Fui pela primeira vez e já saí marcando o retorno. Diagnóstico gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
+        "role": "Cliente desde 2022",
+        "text": "Fui pela primeira vez e já saí marcando o retorno. O diagnóstico gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
         "rating": 5
       },
       {
         "name": "Carla M.",
-        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar.",
+        "role": "Cliente desde 2021",
+        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar o fio.",
         "rating": 5
       },
       {
         "name": "Juliana P.",
-        "text": "A progressiva durou muito mais que nas outras vezes. Equipe muito atenciosa e o salão é limpo e organizado.",
+        "role": "Cliente desde 2023",
+        "text": "A progressiva durou muito mais que nas outras vezes. Equipe atenciosa, salão limpíssimo e bem decorado.",
         "rating": 5
       }
     ]

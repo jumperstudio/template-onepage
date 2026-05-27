@@ -1,43 +1,63 @@
 ---
-// Gallery.astro
-// Renderiza fotos do client.json. Se não houver fotos (< 2), não renderiza.
-
 interface Props {
   photos: string[];
   businessName: string;
+  label?: string;
+  title?: string;
 }
 
-const { photos, businessName } = Astro.props;
+const { photos, businessName, label = 'Galeria', title = 'Veja nosso trabalho' } = Astro.props;
 if (!photos || photos.length < 2) return;
 
-// Máximo 6 fotos na galeria
-const galleryPhotos = photos.slice(0, 6);
+const gallery = photos.slice(0, 6);
 ---
 
-<section id="galeria" class="section bg-gray-50">
-  <div class="container">
+<section id="trabalhos" class="section bg-secondary text-cream" data-section-blur>
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
 
-    <div class="mb-12">
-      <p class="font-body text-sm font-semibold uppercase tracking-widest text-primary mb-2">
-        Nosso espaço
-      </p>
-      <h2 class="font-display text-display-lg font-bold uppercase text-secondary">
-        Galeria
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+      <div class="lg:col-span-3">
+        <span class="text-xs uppercase tracking-[0.25em] text-cream/50 reveal-up inline-flex items-center gap-3">
+          <span class="inline-block w-6 h-px bg-primary"></span>
+          {label}
+        </span>
+      </div>
+      <h2 class="lg:col-span-9 font-display text-big uppercase">
+        <span class="reveal-mask block"><span>{title}</span></span>
       </h2>
     </div>
 
-    <!-- Grid masonry simples -->
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-      {galleryPhotos.map((photo, i) => (
-        <div class={`overflow-hidden rounded-card ${i === 0 ? 'col-span-2 md:col-span-1 md:row-span-2' : ''}`}>
-          <img
-            src={photo}
-            alt={`${businessName} — foto ${i + 1}`}
-            class="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-slow"
-            loading="lazy"
-          />
+    <div class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 md:gap-4 h-[70vh] md:h-[85vh]" data-stagger>
+      {gallery[0] && (
+        <div class="col-span-2 row-span-2 overflow-hidden rounded-lg group reveal-up" data-stagger-item>
+          <img src={gallery[0]} alt={`${businessName} 1`} loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
         </div>
-      ))}
+      )}
+      {gallery[1] && (
+        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
+          <img src={gallery[1]} alt={`${businessName} 2`} loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
+        </div>
+      )}
+      {gallery[2] && (
+        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
+          <img src={gallery[2]} alt={`${businessName} 3`} loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
+        </div>
+      )}
+      {gallery[3] && (
+        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
+          <img src={gallery[3]} alt={`${businessName} 4`} loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
+        </div>
+      )}
+      {gallery[4] && (
+        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
+          <img src={gallery[4]} alt={`${businessName} 5`} loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
+        </div>
+      )}
     </div>
 
   </div>

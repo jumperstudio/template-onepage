@@ -1,53 +1,58 @@
 ---
-// Footer.astro
-
 interface Props {
   businessName: string;
-  address: string;
-  phone: string;
-  social: Record<string, string>;
+  shortName?: string;
+  address?: string;
+  phone?: string;
+  social?: Record<string, string>;
 }
 
-const { businessName, address, phone, social } = Astro.props;
+const { businessName, shortName, address, phone, social } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-secondary py-10">
-  <div class="container">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<footer class="bg-secondary text-cream">
 
-      <div>
-        <p class="font-display text-xl font-bold uppercase text-white">{businessName}</p>
-        {address && <p class="font-body text-sm text-white/40 mt-1">{address}</p>}
-      </div>
-
-      <div class="flex gap-6 items-center">
-        {social?.instagram && (
-          <a
-            href={social.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="font-body text-sm text-white/40 hover:text-primary transition-colors"
-          >
-            Instagram
-          </a>
-        )}
-        {phone && (
-          <a
-            href={`tel:${phone.replace(/\D/g,'')}`}
-            class="font-body text-sm text-white/40 hover:text-primary transition-colors"
-          >
-            {phone}
-          </a>
-        )}
-      </div>
-
-    </div>
-
-    <div class="border-t border-white/10 mt-8 pt-6">
-      <p class="font-body text-xs text-white/30">
-        © {year} {businessName}. Todos os direitos reservados.
-      </p>
+  <!-- Big name -->
+  <div class="border-y border-cream/10 py-12 md:py-16 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <h2 class="font-display text-huge uppercase leading-[0.9] whitespace-nowrap overflow-hidden">
+        <span class="reveal-mask block"><span>{shortName || businessName}</span></span>
+      </h2>
     </div>
   </div>
+
+  <!-- Info row -->
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+
+    {address && (
+      <div>
+        <div class="text-xs uppercase tracking-widest text-cream/40 mb-2">Endereço</div>
+        <div class="text-cream/80">{address}</div>
+      </div>
+    )}
+
+    {phone && (
+      <div>
+        <div class="text-xs uppercase tracking-widest text-cream/40 mb-2">Telefone</div>
+        <a href={`tel:${phone.replace(/\D/g,'')}`} class="text-cream/80 hover:text-primary transition-colors block">{phone}</a>
+      </div>
+    )}
+
+    {social?.instagram && (
+      <div>
+        <div class="text-xs uppercase tracking-widest text-cream/40 mb-2">Redes</div>
+        <a href={social.instagram} target="_blank" rel="noopener" class="text-cream/80 hover:text-primary transition-colors">
+          Instagram
+        </a>
+      </div>
+    )}
+
+  </div>
+
+  <!-- Bottom -->
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-6 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-3 text-xs uppercase tracking-widest text-cream/30">
+    <span>© {year} {businessName}. Todos os direitos reservados.</span>
+  </div>
+
 </footer>

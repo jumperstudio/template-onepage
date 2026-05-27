@@ -1,0 +1,24 @@
+---
+interface Props {
+  words: string[];
+  variant?: 'light' | 'dark';
+}
+
+const { words, variant = 'dark' } = Astro.props;
+const repeated = Array.from({ length: 4 }, () => words).flat();
+
+const bgClass = variant === 'dark' ? 'bg-secondary text-cream' : 'bg-cream text-secondary';
+---
+
+<div class={`${bgClass} overflow-hidden border-y border-current/10`}>
+  <div class="py-3 md:py-4 [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
+    <div class="marquee-track" aria-label={words.join(', ')}>
+    {repeated.map((word) => (
+      <div class="flex items-center gap-6 md:gap-9 pr-6 md:pr-9 shrink-0">
+        <span class="font-display text-xl md:text-3xl uppercase whitespace-nowrap leading-none">{word}</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+      </div>
+    ))}
+    </div>
+  </div>
+</div>

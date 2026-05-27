@@ -1,40 +1,41 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,mdx}'],
   theme: {
     extend: {
-      // ─── ZONA DE ALTERAÇÃO DA IA ───────────────────────────────────────────
-      // A IA SÓ ALTERA primary e secondary. Nada mais neste arquivo.
+      // ─── ZONA DA IA: só altera primary/secondary ───
       colors: {
-        primary:   '#E85D26', // cor primária do cliente (client.json → meta.primary_color)
-        secondary: '#1C1C1C', // cor secundária do cliente (client.json → meta.secondary_color)
+        primary:   '#FF4D2E',
+        secondary: '#0A0A0A',
+        cream:     '#F5F1EA',
+        smoke:     '#9B9B9B',
+        line:      '#E5E1DA',
       },
-      // ─── FIM DA ZONA DE ALTERAÇÃO ─────────────────────────────────────────
+      // ─── FIM DA ZONA DA IA ───
 
-      // DS-02 Modern Local — tokens fixos, não alterar
       fontFamily: {
-        display: ['"Barlow Condensed"', 'sans-serif'],
-        body:    ['"DM Sans"', 'sans-serif'],
+        display: ['var(--font-display)', 'sans-serif'],
+        body:    ['var(--font-body)', 'sans-serif'],
       },
       fontSize: {
-        'display-xl': ['clamp(3rem, 8vw, 6rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
-        'display-lg': ['clamp(2rem, 5vw, 3.5rem)', { lineHeight: '1.0',  letterSpacing: '-0.01em' }],
-        'display-md': ['clamp(1.5rem, 3vw, 2rem)',  { lineHeight: '1.1' }],
+        'huge': ['clamp(3rem, 9vw, 7rem)',  { lineHeight: '1.15', letterSpacing: '-0.025em' }],
+        'big':  ['clamp(2.25rem, 5vw, 4rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        'mid':  ['clamp(1.5rem, 2.5vw, 2rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
       },
       spacing: {
-        'section': '6rem',
-        'section-sm': '4rem',
+        'section': 'clamp(4rem, 10vw, 8rem)',
       },
-      borderRadius: {
-        'card': '0.75rem',
-        'btn':  '0.375rem',
+      transitionTimingFunction: {
+        'expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
       },
-      boxShadow: {
-        'card': '0 4px 24px rgba(0,0,0,0.08)',
-        'card-hover': '0 8px 32px rgba(0,0,0,0.14)',
+      animation: {
+        'marquee': 'marquee 68s linear infinite',
       },
-      maxWidth: {
-        'content': '72rem',
+      keyframes: {
+        marquee: {
+          '0%':   { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },

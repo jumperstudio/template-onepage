@@ -74,17 +74,66 @@ try {
 
 // ═══ REVEAL ON SCROLL ════════════════════════════════════════════════════
 try {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+  const setWithoutReveal = (el, visible) => {
+    el.classList.add('reveal-no-transition');
+    el.classList.toggle('is-visible', visible);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => el.classList.remove('reveal-no-transition'));
+    });
+  };
+
+  const showWithReveal = (el) => {
+    el.classList.remove('reveal-no-transition');
+    el.classList.add('is-visible');
+  };
+
+  const revealItems = Array.from(document.querySelectorAll('.reveal-up, .reveal-mask'));
+  let lastRevealScrollY = window.scrollY;
+  let resetQueued = false;
+
+  const resetItemsBelowViewport = () => {
+    resetQueued = false;
+    revealItems.forEach((el) => {
+      if (el.classList.contains('is-visible') && el.getBoundingClientRect().top >= window.innerHeight + 8) {
+        setWithoutReveal(el, false);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+  };
 
-  document.querySelectorAll('.reveal-up, .reveal-mask').forEach((el) => observer.observe(el));
-  console.log('motion.js: reveal on scroll observer initialized');
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    const isScrollingUp = currentScrollY < lastRevealScrollY;
+
+    if (isScrollingUp && !resetQueued) {
+      resetQueued = true;
+      requestAnimationFrame(resetItemsBelowViewport);
+    }
+
+    lastRevealScrollY = currentScrollY;
+  }, { passive: true });
+
+  revealItems.forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      end: 'bottom 15%',
+      onEnter: () => showWithReveal(el),
+      onEnterBack: () => {
+        if (!el.classList.contains('is-visible')) {
+          setWithoutReveal(el, true);
+        }
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top bottom',
+      onLeaveBack: () => {
+        setWithoutReveal(el, false);
+      }
+    });
+  });
+  console.log('motion.js: reveal on scroll triggers initialized');
 } catch (e) {
   console.error('motion.js: failed to initialize reveal on scroll', e);
 }
@@ -143,11 +192,10 @@ function initHeroAnimation() {
     if (heroFade.length) {
       gsap.fromTo(
         heroFade,
-        { opacity: 0, y: 15, filter: 'blur(6px)' },
+        { opacity: 0, y: 15 },
         {
           opacity: 1,
           y: 0,
-          filter: 'blur(0px)',
           duration: 0.9,
           stagger: 0.1,
           delay: 0.7,
@@ -191,15 +239,14 @@ try {
   console.error('motion.js: failed to schedule initHeroAnimation', e);
 }
 
-// ═══ SECTION FADE/BLUR (entrada de seção) ════════════════════════════════
+// ═══ SECTION BACKGROUND FADE (sem deslocar fundos) ═══════════════════════
 try {
   document.querySelectorAll('[data-section-blur]').forEach((section) => {
     gsap.fromTo(
       section,
-      { opacity: 0.4, filter: 'blur(8px)' },
+      { opacity: 0.92 },
       {
         opacity: 1,
-        filter: 'blur(0px)',
         ease: 'power2.out',
         scrollTrigger: {
           trigger: section,
@@ -211,5 +258,5 @@ try {
     );
   });
 } catch (e) {
-  console.error('motion.js: failed to initialize section fade/blur', e);
+  console.error('motion.js: failed to initialize section background fade', e);
 }

@@ -62,6 +62,89 @@ const schema = {
 
   <script>
     import '../scripts/motion.js';
+
+    const mobileMenu = document.querySelector('#mobile-menu');
+    const mobileMenuToggles = document.querySelectorAll('[data-mobile-menu-toggle]');
+
+    mobileMenuToggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const isOpen = mobileMenu?.classList.toggle('is-open') ?? false;
+        mobileMenu?.setAttribute('aria-hidden', String(!isOpen));
+        mobileMenuToggles.forEach((item) => {
+          item.setAttribute('aria-expanded', String(isOpen));
+        });
+      });
+    });
+
+    mobileMenu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        mobileMenuToggles.forEach((item) => {
+          item.setAttribute('aria-expanded', 'false');
+        });
+      });
+    });
+
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImage = lightbox?.querySelector('[data-lightbox-image]');
+    const lightboxCounter = lightbox?.querySelector('[data-lightbox-counter]');
+    const lightboxData = lightbox?.querySelector('[data-lightbox-images]');
+    const lightboxTriggers = document.querySelectorAll('[data-lightbox-trigger]');
+    const lightboxImages = lightboxData?.textContent ? JSON.parse(lightboxData.textContent) : [];
+    let activeLightboxIndex = 0;
+
+    const setLightboxImage = (index) => {
+      if (!lightboxImage || !lightboxCounter || lightboxImages.length === 0) return;
+
+      activeLightboxIndex = (index + lightboxImages.length) % lightboxImages.length;
+      const item = lightboxImages[activeLightboxIndex];
+      lightboxImage.setAttribute('src', item.src);
+      lightboxImage.setAttribute('alt', item.alt);
+      lightboxCounter.textContent = `${String(activeLightboxIndex + 1).padStart(2, '0')} / ${String(lightboxImages.length).padStart(2, '0')}`;
+    };
+
+    const openLightbox = (index) => {
+      if (!lightbox) return;
+
+      setLightboxImage(index);
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      lightbox.querySelector('[data-lightbox-close]')?.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox?.classList.remove('is-open');
+      lightbox?.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+    };
+
+    lightboxTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        openLightbox(Number(trigger.getAttribute('data-lightbox-index') || 0));
+      });
+    });
+
+    lightbox?.querySelectorAll('[data-lightbox-close]').forEach((button) => {
+      button.addEventListener('click', closeLightbox);
+    });
+
+    lightbox?.querySelector('[data-lightbox-prev]')?.addEventListener('click', () => {
+      setLightboxImage(activeLightboxIndex - 1);
+    });
+
+    lightbox?.querySelector('[data-lightbox-next]')?.addEventListener('click', () => {
+      setLightboxImage(activeLightboxIndex + 1);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!lightbox?.classList.contains('is-open')) return;
+
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') setLightboxImage(activeLightboxIndex - 1);
+      if (event.key === 'ArrowRight') setLightboxImage(activeLightboxIndex + 1);
+    });
   </script>
 </body>
 </html>

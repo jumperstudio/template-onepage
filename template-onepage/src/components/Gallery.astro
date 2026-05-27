@@ -6,14 +6,16 @@ interface Props {
   title?: string;
 }
 
-const { photos, businessName, label = 'Galeria', title = 'Veja nosso trabalho' } = Astro.props;
-if (!photos || photos.length < 2) return;
+const { photos, businessName, label = 'Galeria', title = 'Veja de perto' } = Astro.props;
+if (!photos || photos.length === 0) return;
 
-const gallery = photos.slice(0, 6);
+const gallery = photos.filter(Boolean);
+const shouldFeatureFirst = gallery.length === 5;
+const remainder = gallery.length % 4;
 ---
 
 <section id="trabalhos" class="section bg-secondary text-cream" data-section-blur>
-  <div class="max-w-6xl mx-auto px-6 md:px-10">
+  <div class="site-shell">
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
       <div class="lg:col-span-3">
@@ -27,38 +29,74 @@ const gallery = photos.slice(0, 6);
       </h2>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 md:gap-4 h-[70vh] md:h-[85vh]" data-stagger>
-      {gallery[0] && (
-        <div class="col-span-2 row-span-2 overflow-hidden rounded-lg group reveal-up" data-stagger-item>
-          <img src={gallery[0]} alt={`${businessName} 1`} loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
-        </div>
-      )}
-      {gallery[1] && (
-        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
-          <img src={gallery[1]} alt={`${businessName} 2`} loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
-        </div>
-      )}
-      {gallery[2] && (
-        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
-          <img src={gallery[2]} alt={`${businessName} 3`} loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
-        </div>
-      )}
-      {gallery[3] && (
-        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
-          <img src={gallery[3]} alt={`${businessName} 4`} loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
-        </div>
-      )}
-      {gallery[4] && (
-        <div class="overflow-hidden rounded-lg group reveal-up" data-stagger-item>
-          <img src={gallery[4]} alt={`${businessName} 5`} loading="lazy"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"/>
-        </div>
-      )}
+    <div
+      class:list={[
+        'gallery-grid',
+        shouldFeatureFirst && 'gallery-grid--featured',
+      ]}
+      data-remainder={remainder}
+      data-stagger
+    >
+      {gallery.map((photo, index) => (
+        <button
+          type="button"
+          class:list={[
+            'gallery-item overflow-hidden rounded-lg group reveal-up',
+            index === 0 && shouldFeatureFirst && 'gallery-item--featured',
+          ]}
+          data-stagger-item
+          data-lightbox-trigger
+          data-lightbox-index={index}
+          aria-label={`Ampliar imagem ${index + 1} de ${businessName}`}
+        >
+          <img
+            src={photo}
+            alt={`${businessName} ${index + 1}`}
+            loading="lazy"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-expo"
+          />
+          <span class="gallery-item__zoom" aria-hidden="true">Ampliar</span>
+        </button>
+      ))}
     </div>
 
+  </div>
+
+  <div class="gallery-lightbox" data-lightbox aria-hidden="true">
+    <button class="gallery-lightbox__backdrop" type="button" data-lightbox-close aria-label="Fechar galeria"></button>
+
+    <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true" aria-label={`Galeria de ${businessName}`}>
+      <div class="gallery-lightbox__top">
+        <span data-lightbox-counter>01 / {gallery.length.toString().padStart(2, '0')}</span>
+        <button class="gallery-lightbox__close" type="button" data-lightbox-close aria-label="Fechar galeria">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <button class="gallery-lightbox__nav gallery-lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Imagem anterior">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <img
+        class="gallery-lightbox__image"
+        src={gallery[0]}
+        alt={`${businessName} 1`}
+        data-lightbox-image
+      />
+
+      <button class="gallery-lightbox__nav gallery-lightbox__nav--next" type="button" data-lightbox-next aria-label="Próxima imagem">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <script type="application/json" data-lightbox-images set:html={JSON.stringify(gallery.map((src, index) => ({
+      src,
+      alt: `${businessName} ${index + 1}`,
+    })))} />
   </div>
 </section>

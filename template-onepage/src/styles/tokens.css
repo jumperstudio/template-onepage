@@ -1070,12 +1070,12 @@ body.lightbox-open {
 }
 
 .contact-main-button__icon {
+  position: relative;
+  top: -1px;
   flex: 0 0 auto;
   color: currentColor;
   width: 18px;
   height: 18px;
-  transform: none;
-  transform-origin: 50% 50%;
 }
 
 .contact-main-button__arrow,

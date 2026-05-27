@@ -1,108 +1,64 @@
 # README-IA — Template One Page
-## Leia este arquivo inteiro antes de qualquer ação
 
----
+Este arquivo orienta alterações assistidas por IA neste template.
+Leia antes de mudar estrutura, copy, design system ou comportamento.
 
-## O que você está fazendo
+## Objetivo
 
-Você está gerando um site institucional para um cliente real.
-Toda informação do cliente está em `/src/data/client.json`.
-Você **não inventa, não complementa, não supõe** nenhum dado além do que está nesse arquivo.
+Gerar e ajustar sites one page para pequenos negócios locais, mantendo consistência visual e rapidez de produção.
 
----
+Toda informação do cliente deve partir de `src/data/client.json`.
+Quando um campo estiver vazio, a interface deve omitir o bloco correspondente de forma limpa.
 
-## Regras absolutas
+## Regras Essenciais
 
-1. **Fonte única de verdade:** tudo vem de `client.json`. Campo vazio = seção omitida. Jamais invente nome, serviço, telefone, depoimento, horário ou diferencial.
+1. Não inventar dados do cliente.
+2. Não inserir placeholders como "Em breve", "A definir" ou "Lorem ipsum".
+3. Preservar o design system DS-02 salvo pedido explícito de mudança.
+4. Evitar refactors amplos durante ajustes visuais pontuais.
+5. Manter os componentes existentes sempre que possível.
+6. Não adicionar bibliotecas sem necessidade real.
+7. Não deixar logs de debug, código morto ou comentários temporários.
+8. Validar build depois de mudanças em código.
 
-2. **Componentes em allowlist:** você usa APENAS estes 7 componentes:
-   - `Hero` — obrigatório
-   - `Services` — obrigatório se houver serviços
-   - `About` — obrigatório
-   - `Testimonials` — obrigatório se houver depoimentos
-   - `Gallery` — opcional, só se houver ≥ 2 fotos
-   - `ContactCTA` — obrigatório
-   - `Footer` — obrigatório
-   
-   **Proibido criar componentes novos sem aprovação humana.**
+## Componentes Permitidos
 
-3. **Tailwind:** você altera APENAS `theme.extend.colors.primary` e `theme.extend.colors.secondary` em `tailwind.config.js`. **Nada mais.**
+- `Hero`
+- `Marquee`
+- `Services`
+- `About`
+- `Testimonials`
+- `Gallery`
+- `ContactCTA`
+- `Footer`
 
-4. **Estrutura de pastas:** não cria, não move, não renomeia arquivos. Trabalha dentro da estrutura existente.
+Novos componentes podem ser criados quando reduzirem complexidade real ou isolarem uma responsabilidade clara.
 
-5. **Copy:** tom direto, afirmativo, sem clichê de marketing. Proibido usar: "qualidade", "excelência", "soluções personalizadas", "atendimento diferenciado", "comprometido", "apaixonado". Use os diferenciais reais do `client.json`.
+## Dados e Omissões
 
-6. **Código:** sem comentários desnecessários. Sem console.log. Sem código morto. Sem bibliotecas externas além do que está no `package.json`.
+| Dado ausente | Comportamento esperado |
+| --- | --- |
+| `services` vazio | Omitir seção de serviços |
+| `assets.testimonials` vazio | Omitir depoimentos |
+| `assets.photos` vazio | Omitir galeria |
+| `contact.social.instagram` vazio | Omitir Instagram |
+| `contact.address` vazio | Omitir endereço e Maps |
+| `contact.hours` vazio | Omitir funcionamento |
 
-7. **Responsividade:** todos os componentes devem funcionar em 375px, 768px e 1280px. Teste os breakpoints.
+## Padrões Visuais
 
-8. **Acessibilidade:** imagens com `alt` descritivo. Links com texto legível. Contraste mínimo WCAG AA.
+- Interface direta, urbana e sofisticada.
+- Tipografia display forte, com corpo limpo e legível.
+- Botões com hover perceptível, elegante e sem perda de nitidez.
+- Cards com raio de borda padronizado.
+- Fundos de seção não devem se mover em transições de scroll.
+- Animações de entrada devem acontecer ao descer a página e resetar de forma discreta ao subir.
 
----
+## QA Obrigatório
 
-## Ordem de execução (cadeia de 5 prompts)
-
-Execute nessa ordem. Não pule etapas.
-
-```
-P1 — Copy    → lê client.json → gera content.json
-P2 — Layout  → lê client.json + content.json → preenche pages/index.astro
-P3 — Estilo  → aplica cores em tailwind.config.js
-P4 — SEO     → configura meta tags em layouts/Base.astro + gera sitemap
-P5 — QA      → checklist programático + visual
-```
-
----
-
-## Estrutura de arquivos
-
-```
-src/
-├── components/     # NÃO CRIAR novos componentes
-│   ├── Hero.astro
-│   ├── Services.astro
-│   ├── About.astro
-│   ├── Testimonials.astro
-│   ├── Gallery.astro
-│   ├── ContactCTA.astro
-│   └── Footer.astro
-├── layouts/
-│   └── Base.astro  # meta tags, schema.org
-├── pages/
-│   └── index.astro # página principal — monta tudo
-├── styles/
-│   └── tokens.css  # NÃO ALTERAR
-└── data/
-    └── client.json # FONTE ÚNICA DE VERDADE
-```
-
----
-
-## O que fazer se um campo estiver vazio
-
-| Campo vazio | Comportamento |
-|---|---|
-| `photos` com menos de 2 | Omite Gallery |
-| `testimonials` vazio | Omite Testimonials |
-| `social.instagram` vazio | Omite link do Instagram |
-| `address` vazio | Omite endereço e link do Maps |
-| `founded` vazio | Omite badge de anos de experiência |
-
-**Nunca colocar texto placeholder como "Em breve", "A definir", "Lorem ipsum".**
-
----
-
-## Checklist antes de marcar como concluído
-
-- [ ] Todas as informações de `client.json` aparecem no site
-- [ ] Nenhum texto inventado ou genérico
-- [ ] Cor primária e secundária aplicadas
-- [ ] Logo configurado (`/assets/logo.svg`)
-- [ ] WhatsApp/telefone clicáveis
-- [ ] Endereço com link do Google Maps
-- [ ] Alt text em todas as imagens
-- [ ] Meta description entre 140–160 caracteres
-- [ ] Title entre 50–60 caracteres
-- [ ] Schema.org LocalBusiness configurado
-- [ ] Responsivo em 375px, 768px, 1280px
-- [ ] Zero console errors
+- `npm run build`
+- Conferir página local em `http://localhost:4321/`
+- Testar navegação mobile
+- Testar lightbox da galeria
+- Testar links externos com `rel="noopener"`
+- Conferir console sem logs de debug

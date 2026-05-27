@@ -1,4 +1,6 @@
 ---
+import { getEmailUrl, getMapsUrl, getPhoneUrl, getWhatsappUrl } from '../lib/links';
+
 interface Props {
   businessName: string;
   phone: string;
@@ -20,28 +22,29 @@ const {
   description = 'Agende seu horário ou tire dúvidas. Respondemos rapidamente.',
 } = Astro.props;
 
-const whatsappUrl = whatsapp ? `https://wa.me/${whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent('Olá, vim pelo site e gostaria de mais informações.')}` : null;
-const phoneUrl = phone ? `tel:${phone.replace(/\D/g,'')}` : null;
-const emailUrl = email ? `mailto:${email}` : null;
+const whatsappUrl = getWhatsappUrl(whatsapp);
+const phoneUrl = getPhoneUrl(phone);
+const emailUrl = getEmailUrl(email);
+const mapsUrl = getMapsUrl(address);
 
 const ctaHref = primaryCta === 'whatsapp' && whatsappUrl ? whatsappUrl : (phoneUrl || emailUrl || '#');
 const ctaLabel = primaryCta === 'whatsapp' ? 'Conversar no WhatsApp' : (primaryCta === 'phone' ? 'Ligar agora' : 'Enviar e-mail');
 
 const contactItems = [
-  phone && {
+  phone && phoneUrl && {
     label: 'Telefone',
     value: phone,
     href: phoneUrl,
   },
-  email && {
+  email && emailUrl && {
     label: 'E-mail',
     value: email,
     href: emailUrl,
   },
-  address && {
+  address && mapsUrl && {
     label: 'Endereço',
     value: address,
-    href: `https://maps.google.com/?q=${encodeURIComponent(address)}`,
+    href: mapsUrl,
     external: true,
   },
 ].filter(Boolean);
@@ -106,7 +109,7 @@ const contactItems = [
       <div class="contact-directory">
         {contactItems.length > 0 && (
           <div class="contact-list" data-stagger>
-            <div class="contact-list__heading reveal-up">
+            <div class="contact-list__heading reveal-up" data-stagger-item>
               <h3 class="contact-block-title">Canais</h3>
               {social?.instagram && (
                 <a href={social.instagram} target="_blank" rel="noopener" class="contact-instagram-link">
@@ -143,11 +146,11 @@ const contactItems = [
           </div>
         )}
 
-        <div class="contact-side reveal-up">
+        <div class="contact-side">
           {Object.keys(hours).length > 0 && (
-            <div class="contact-hours">
-              <h3 class="contact-block-title">Funcionamento</h3>
-              <dl class="contact-hours__list" data-stagger>
+            <div class="contact-hours" data-stagger>
+              <h3 class="contact-block-title reveal-up" data-stagger-item>Funcionamento</h3>
+              <dl class="contact-hours__list">
                 {Object.entries(hours).map(([day, time]) => (
                   <div class="contact-hours__row reveal-up" data-stagger-item>
                     <dt>{day}</dt>

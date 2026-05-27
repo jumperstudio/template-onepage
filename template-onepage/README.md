@@ -1,61 +1,77 @@
-# template-onepage
-## Esteira de Sites por IA — Jumper Studio
+# Template One Page
 
-Template base para geração de sites One Page via IA.
-Stack: Astro + Tailwind CSS. Deploy: Vercel.
+Template Astro para sites institucionais de uma página da esteira Jumper.
+O projeto foi pensado para receber dados de um cliente, montar uma página completa e manter o visual consistente entre desktop e mobile.
 
----
+## Stack
 
-## Estrutura
+- Astro 4
+- Tailwind CSS
+- CSS global em `src/styles/tokens.css`
+- Animações com GSAP, ScrollTrigger e Lenis
+- Fontes auto-hospedadas via Fontsource
 
-```
-src/
-├── components/     7 componentes fixos (não criar novos sem aprovação)
-├── layouts/        Base.astro com SEO e Schema.org
-├── pages/          index.astro — monta o site via client.json
-├── styles/         tokens.css — DS-02 base
-└── data/
-    └── client.json ÚNICA FONTE DE VERDADE — preencher antes de gerar
-public/
-└── assets/         logo.svg + fotos do cliente
-prompts/
-└── cadeia-de-geracao.md  5 prompts em sequência para a IA
-design-systems/
-└── DS-02/          spec.md + tokens do design system
-README-IA.md        instruções obrigatórias para a IA
-```
-
----
-
-## Fluxo de geração
-
-1. Preencher `src/data/client.json` com dados reais do cliente
-2. Copiar assets para `public/assets/`
-3. Rodar os 5 prompts de `prompts/cadeia-de-geracao.md` em sequência
-4. `npm run dev` para visualizar localmente
-5. Checklist de QA
-6. `npm run build` + deploy na Vercel
-
----
-
-## Instalação
+## Comandos
 
 ```bash
 npm install
 npm run dev
+npm run build
+npm run preview
 ```
 
----
+O desenvolvimento local usa, por padrão, `http://localhost:4321/`.
 
-## Deploy na Vercel
+## Estrutura
 
-1. Push pro GitHub
-2. Importar repo na Vercel
-3. Framework: Astro (auto-detectado)
-4. Deploy automático a cada push na main
+```text
+src/
+  components/      Seções visuais da landing page
+  data/            Dados do cliente
+  layouts/         HTML base, SEO e schema
+  lib/             Helpers reutilizáveis
+  pages/           Composição da página
+  scripts/         Interações e animações
+  styles/          Tokens, base visual e estilos de componentes
 
----
+public/
+  icons/           Ícones e assets fixos do template
+  assets/          Espaço para assets enviados pelo cliente
 
-## Regras para a IA
+design-systems/    Especificações visuais do template
+prompts/           Fluxo de geração assistida por IA
+```
 
-Ver `README-IA.md` — obrigatório ler antes de qualquer alteração.
+## Fonte de Dados
+
+`src/data/client.json` é a fonte principal de conteúdo. Antes de alterar texto fixo em componentes, confira se o dado deveria vir desse arquivo.
+
+Campos vazios devem gerar omissão elegante da informação, não placeholders. Exemplos: sem Instagram, não renderizar link; sem depoimentos, não renderizar seção de depoimentos.
+
+## Componentes
+
+- `Hero.astro`: primeira dobra, navegação e CTA principal
+- `Marquee.astro`: esteira de serviços/localização
+- `Services.astro`: serviços do cliente
+- `About.astro`: posicionamento e diferenciais
+- `Testimonials.astro`: depoimentos
+- `Gallery.astro`: mosaico e lightbox
+- `ContactCTA.astro`: contato, canais e funcionamento
+- `Footer.astro`: rodapé institucional
+
+## Padrões de Código
+
+- Reutilize helpers de `src/lib/` para links, formatação e regras compartilhadas.
+- Mantenha componentes focados em renderização.
+- Não deixe `console.log`, código morto ou trechos temporários.
+- Preserve acessibilidade em links, imagens, botões e lightbox.
+- Valide responsividade em mobile, tablet e desktop largo.
+
+## Checklist Antes de Entregar
+
+- `npm run build` passa sem erro.
+- Página abre em `localhost:4321`.
+- Textos continuam legíveis em 375px, 768px, 1280px e telas largas.
+- Galeria funciona com quantidades variáveis de imagens.
+- Links de telefone, WhatsApp, e-mail, Maps e Instagram estão corretos.
+- Animações não deslocam fundos de seção nem criam faixas visuais.

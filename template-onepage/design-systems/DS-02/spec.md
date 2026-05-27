@@ -1,80 +1,62 @@
 # DS-02 — Modern Local
 
-## Quando usar
+Design system para negócios locais com apelo visual forte e público amplo: salões, barbearias, restaurantes, academias, cafeterias, lojas e serviços de bairro.
 
-Negócios locais com apelo visual forte e público amplo:
-restaurantes, salões, barbearias, oficinas, academias, petshops, cafeterias, lojas de bairro.
+## Direção
 
-**Não usar para:** advogados, contadores, clínicas médicas sérias — nesses casos, DS-01 Clean Corporate.
-
----
-
-## Personalidade visual
-
-Direto. Urbano. Confiante. Sem enrolação.
-Tipografia condensada de grande impacto, contrastando com corpo clean.
-Fundo escuro no hero e depoimentos cria peso e seriedade.
-Cor primária é agressiva e chamativa.
-
----
+Direto, urbano, confiante e premium sem exagero. A página deve vender clareza, presença e confiança, com leitura rápida e alto contraste.
 
 ## Tipografia
 
-- **Display:** Barlow Condensed 700/800 — headlines, títulos de seção, nome do negócio
-- **Body:** DM Sans 400/500/600 — parágrafos, labels, botões
+- Display: `Anton`
+- Corpo: `DM Sans`
+- Pares alternativos são definidos por `meta.font_pair` em `client.json`.
+- Evitar animações ou hovers que mudem a rasterização da fonte.
 
-Google Fonts, preload obrigatório.
+## Paleta
 
----
+| Token | Uso |
+| --- | --- |
+| `primary` | CTAs, detalhes, seção de contato |
+| `secondary` | Hero, rodapé, blocos escuros |
+| `cream` | Fundos claros e texto sobre escuro |
+| `line` | Divisórias |
+| `smoke` | Texto secundário |
 
-## Paleta base (invariável)
+As cores do cliente entram em `tailwind.config.js`, mas precisam preservar contraste e legibilidade.
 
-| Token | Valor | Uso |
-|---|---|---|
-| `--color-white` | `#FFFFFF` | Fundos claros, texto sobre escuro |
-| `--color-gray-50` | `#F7F7F7` | Seções alternadas (Services, Gallery) |
-| `--color-gray-600` | `#5A5A5A` | Corpo de texto secundário |
-| `--color-gray-800` | `#2A2A2A` | Corpo de texto principal |
-| `--color-black` | `#0D0D0D` | — |
-| `secondary` | client.json | Fundos escuros (hero, footer, depoimentos) |
-| `primary` | client.json | Acentos, CTAs, destaques, hover |
+## Layout
 
-**Regra:** primary e secondary precisam ter contraste mínimo 4.5:1 entre si (WCAG AA).
+- Usar `.site-shell` para largura principal do conteúdo.
+- Em telas largas, evitar conteúdo excessivamente centralizado.
+- Hero deve manter texto com margens laterais confortáveis.
+- Seções devem alternar peso visual: escuro, claro, escuro, contato forte.
+- Cards e imagens usam raio de borda consistente.
 
----
+## Componentes
 
-## Componentes e tokens
-
-| Componente | Tokens relevantes |
-|---|---|
-| Botões | `rounded-btn` (0.375rem), `bg-primary`, `hover:brightness-110` |
-| Cards | `rounded-card` (0.75rem), `shadow-card`, `hover:shadow-card-hover` |
-| Seções | `section` (6rem padding) ou `section-sm` (4rem) |
-| Container | `max-w-content` (72rem), `px-gutter` |
-
----
-
-## Alternância de seções
-
-Alternar fundos para criar ritmo:
-
-```
-Hero         → bg-secondary (escuro)
-Services     → bg-gray-50 (claro)
-About        → bg-white (branco)
-Testimonials → bg-secondary (escuro)
-Gallery      → bg-gray-50 (claro)
-ContactCTA   → bg-white (branco)
-Footer       → bg-secondary (escuro)
-```
-
----
+| Componente | Papel |
+| --- | --- |
+| Hero | Impacto inicial, navegação e CTA |
+| Marquee | Reforço de serviços/localização |
+| Services | Clareza da oferta |
+| About | Contexto e diferenciais |
+| Testimonials | Prova social |
+| Gallery | Imagens variáveis com lightbox |
+| ContactCTA | Conversão e informações práticas |
+| Footer | Fechamento institucional |
 
 ## Motion
 
-- Hover em cards: `shadow-card` → `shadow-card-hover` + `transition-shadow duration-base`
-- Hover em botões: `hover:brightness-110 hover:-translate-y-0.5`
-- Hover em fotos: `hover:scale-105 transition-transform duration-slow`
-- Detalhe DS-02: linha `h-1 bg-primary` crescendo no hover de cards
+- Fundos de seção fazem apenas fade.
+- Elementos internos podem revelar em scroll.
+- Revelações devem repetir ao rolar novamente de cima para baixo.
+- Sem blur pesado em fundos.
+- Respeitar `prefers-reduced-motion`.
 
-Sem animações de scroll (não depende de JS). Performance first.
+## Estados de Interação
+
+- Botões: hover visível, com texto e ícone nítidos.
+- Links de menu: linha elegante, sem pill.
+- Serviços: hover presente, mas sem contraste agressivo demais.
+- Galeria: cursor visual textual "Ampliar" e lightbox centralizado.

@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "client_id": "cli_exemplo_001",
+    "template": "onepage",
+    "design_system": "DS-02",
+    "primary_color": "#E85D26",
+    "secondary_color": "#1C1C1C",
+    "created_at": "2026-05-27",
+    "delivery_deadline": "2026-06-05"
+  },
+  "business": {
+    "name": "Salão Bella Vita",
+    "tagline": "Corte, cor e cuidado — tudo no mesmo lugar",
+    "founded": 2018,
+    "city": "Rio de Janeiro",
+    "neighborhood": "Tijuca",
+    "operation_mode": "presencial"
+  },
+  "services": [
+    {
+      "name": "Corte feminino",
+      "description": "Corte personalizado com análise de rosto e tipo de cabelo.",
+      "target": "Mulheres que querem mudança sem erro"
+    },
+    {
+      "name": "Coloração",
+      "description": "Coloração com produtos sem amônia. Mechas, ombré e luzes.",
+      "target": "Quem quer cor sem danificar o fio"
+    },
+    {
+      "name": "Tratamento capilar",
+      "description": "Hidratação profunda, reconstrução e cronograma capilar.",
+      "target": "Cabelos danificados, secos ou com queda"
+    },
+    {
+      "name": "Escova progressiva",
+      "description": "Resultado duradouro com fórmula livre de formol.",
+      "target": "Quem quer lisar sem complicação"
+    }
+  ],
+  "audience": {
+    "profile": "Mulheres entre 25 e 55 anos, classe média, moradoras da Tijuca e Vila Isabel",
+    "differentials": [
+      "Agendamento online com confirmação em até 1 hora",
+      "Diagnóstico capilar gratuito na primeira visita",
+      "Produtos profissionais L'Oréal e Wella — sem mistura de marca"
+    ],
+    "what_we_dont_do": "Não fazemos extensões de cabelo nem tratamentos masculinos"
+  },
+  "contact": {
+    "phone": "(21) 99999-0000",
+    "whatsapp": "5521999990000",
+    "email": "contato@bellavita.com.br",
+    "address": "Rua Conde de Bonfim, 123 — Tijuca, Rio de Janeiro/RJ",
+    "hours": {
+      "seg-sex": "09:00 – 19:00",
+      "sab": "09:00 – 17:00",
+      "dom": "Fechado"
+    },
+    "social": {
+      "instagram": "https://instagram.com/salaobellavita",
+      "facebook": ""
+    },
+    "primary_cta": "whatsapp"
+  },
+  "assets": {
+    "logo": "/assets/logo.svg",
+    "photos": [
+      "/assets/foto-01.jpg",
+      "/assets/foto-02.jpg",
+      "/assets/foto-03.jpg",
+      "/assets/foto-04.jpg",
+      "/assets/foto-05.jpg",
+      "/assets/foto-06.jpg"
+    ],
+    "testimonials": [
+      {
+        "name": "Fernanda R.",
+        "text": "Fui pela primeira vez e já saí marcando o retorno. Diagnóstico gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
+        "rating": 5
+      },
+      {
+        "name": "Carla M.",
+        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar.",
+        "rating": 5
+      },
+      {
+        "name": "Juliana P.",
+        "text": "A progressiva durou muito mais que nas outras vezes. Equipe muito atenciosa e o salão é limpo e organizado.",
+        "rating": 5
+      }
+    ]
+  },
+  "seo": {
+    "keywords": [
+      "salão de beleza tijuca",
+      "coloração tijuca rio de janeiro",
+      "corte feminino tijuca",
+      "escova progressiva tijuca",
+      "salão vila isabel"
+    ],
+    "locations": ["Tijuca", "Vila Isabel", "Grajaú", "Maracanã"],
+    "meta_description": "Salão Bella Vita na Tijuca — corte, coloração e tratamento capilar com agendamento online. Diagnóstico gratuito na primeira visita."
+  }
+}

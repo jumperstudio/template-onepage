@@ -1,0 +1,63 @@
+---
+// Hero.astro
+// Props vêm de client.json via index.astro. Não inventar conteúdo.
+interface Props {
+  businessName: string;
+  tagline: string;
+  ctaLabel: string;
+  ctaHref: string;
+  primaryColor: string;
+  heroImage?: string;
+}
+
+const { businessName, tagline, ctaLabel, ctaHref, primaryColor, heroImage } = Astro.props;
+---
+
+<section id="inicio" class="relative min-h-[90vh] flex items-center overflow-hidden bg-secondary">
+
+  <!-- Imagem de fundo (se existir) -->
+  {heroImage && (
+    <div class="absolute inset-0 z-0">
+      <img
+        src={heroImage}
+        alt={businessName}
+        class="w-full h-full object-cover opacity-30"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/80 to-transparent"></div>
+    </div>
+  )}
+
+  <div class="container relative z-10 py-24">
+    <div class="max-w-2xl">
+
+      <!-- Label de localização / categoria (opcional, vem do DS) -->
+      <p class="font-body text-sm font-medium tracking-widest uppercase text-primary mb-6">
+        {businessName}
+      </p>
+
+      <!-- Headline principal -->
+      <h1 class="font-display text-display-xl font-extrabold uppercase text-white leading-none mb-6">
+        {tagline}
+      </h1>
+
+      <!-- CTA principal -->
+      <a
+        href={ctaHref}
+        target={ctaHref.startsWith('http') ? '_blank' : '_self'}
+        rel={ctaHref.startsWith('http') ? 'noopener noreferrer' : ''}
+        class="inline-flex items-center gap-3 bg-primary text-white font-body font-semibold text-lg px-8 py-4 rounded-btn transition-all duration-base hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0"
+      >
+        {ctaLabel}
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Detalhe visual DS-02 -->
+  <div class="absolute bottom-0 left-0 right-0 h-1 bg-primary"></div>
+
+</section>

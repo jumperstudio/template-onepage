@@ -1,0 +1,115 @@
+---
+// index.astro — One Page
+// Esta página lê client.json e monta o site completo.
+// A IA não altera a estrutura desta página — só popula os dados.
+
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Gallery from '../components/Gallery.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import Footer from '../components/Footer.astro';
+
+import data from '../data/client.json';
+
+// CTA principal
+const ctaHref = data.contact.primary_cta === 'whatsapp' && data.contact.whatsapp
+  ? `https://wa.me/${data.contact.whatsapp.replace(/\D/g,'')}?text=Olá, vim pelo site e gostaria de mais informações.`
+  : data.contact.primary_cta === 'phone' && data.contact.phone
+  ? `tel:${data.contact.phone.replace(/\D/g,'')}`
+  : `mailto:${data.contact.email}`;
+
+const ctaLabel = data.contact.primary_cta === 'whatsapp'
+  ? 'Falar pelo WhatsApp'
+  : data.contact.primary_cta === 'phone'
+  ? 'Ligar agora'
+  : 'Entrar em contato';
+
+// SEO title
+const pageTitle = `${data.business.name} — ${data.business.tagline}`;
+---
+
+<Base
+  title={pageTitle}
+  description={data.seo.meta_description}
+  businessName={data.business.name}
+  address={data.contact.address}
+  phone={data.contact.phone}
+  keywords={data.seo.keywords}
+>
+
+  <!-- Navegação mínima -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-sm border-b border-white/10">
+    <div class="container flex justify-between items-center py-4">
+      <a href="#inicio" class="font-display text-lg font-bold uppercase text-white">
+        {data.business.name}
+      </a>
+      <nav class="hidden md:flex gap-8">
+        <a href="#servicos" class="font-body text-sm text-white/60 hover:text-primary transition-colors">Serviços</a>
+        <a href="#sobre" class="font-body text-sm text-white/60 hover:text-primary transition-colors">Sobre</a>
+        <a href="#depoimentos" class="font-body text-sm text-white/60 hover:text-primary transition-colors">Depoimentos</a>
+        <a href="#contato" class="font-body text-sm text-white/60 hover:text-primary transition-colors">Contato</a>
+      </nav>
+      <a
+        href={ctaHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-body text-sm font-semibold bg-primary text-white px-5 py-2.5 rounded-btn hover:brightness-110 transition-all"
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  </header>
+
+  <!-- Offset pro header fixo -->
+  <div class="pt-[4.5rem]">
+
+    <Hero
+      businessName={data.business.name}
+      tagline={data.business.tagline}
+      ctaLabel={ctaLabel}
+      ctaHref={ctaHref}
+      primaryColor={data.meta.primary_color}
+      heroImage={data.assets.photos?.[0]}
+    />
+
+    <Services items={data.services} />
+
+    <About
+      businessName={data.business.name}
+      founded={data.business.founded}
+      profile={data.audience.profile}
+      differentials={data.audience.differentials}
+      photos={data.assets.photos}
+    />
+
+    <Testimonials items={data.assets.testimonials} />
+
+    <Gallery
+      photos={data.assets.photos}
+      businessName={data.business.name}
+    />
+
+    <ContactCTA
+      businessName={data.business.name}
+      phone={data.contact.phone}
+      whatsapp={data.contact.whatsapp}
+      email={data.contact.email}
+      address={data.contact.address}
+      hours={data.contact.hours}
+      primaryCta={data.contact.primary_cta}
+      social={data.contact.social}
+    />
+
+    <Footer
+      businessName={data.business.name}
+      address={data.contact.address}
+      phone={data.contact.phone}
+      social={data.contact.social}
+    />
+
+  </div>
+
+</Base>

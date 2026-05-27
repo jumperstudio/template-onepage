@@ -1,0 +1,54 @@
+---
+// Services.astro
+// Renderiza lista de serviços do client.json. Mínimo 2, máximo 8.
+// Se items estiver vazio, o componente não renderiza nada (não inventar serviços).
+
+interface ServiceItem {
+  name: string;
+  description: string;
+  target: string;
+}
+
+interface Props {
+  items: ServiceItem[];
+}
+
+const { items } = Astro.props;
+if (!items || items.length === 0) return;
+---
+
+<section id="servicos" class="section bg-gray-50">
+  <div class="container">
+
+    <!-- Cabeçalho da seção -->
+    <div class="mb-12">
+      <p class="font-body text-sm font-semibold uppercase tracking-widest text-primary mb-2">
+        O que fazemos
+      </p>
+      <h2 class="font-display text-display-lg font-bold uppercase text-secondary">
+        Nossos serviços
+      </h2>
+    </div>
+
+    <!-- Grid de cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((service) => (
+        <article class="bg-white rounded-card p-8 shadow-card hover:shadow-card-hover transition-shadow duration-base group">
+          <div class="w-10 h-1 bg-primary mb-6 transition-all duration-base group-hover:w-16"></div>
+          <h3 class="font-display text-display-md font-bold uppercase text-secondary mb-3">
+            {service.name}
+          </h3>
+          <p class="font-body text-gray-600 text-base leading-relaxed mb-4">
+            {service.description}
+          </p>
+          {service.target && (
+            <p class="font-body text-sm text-gray-400">
+              Para: {service.target}
+            </p>
+          )}
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>

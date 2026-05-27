@@ -1,0 +1,122 @@
+---
+// ContactCTA.astro
+// CTA final + dados de contato. Tudo vem do client.json.
+
+interface Props {
+  businessName: string;
+  phone: string;
+  whatsapp: string;
+  email: string;
+  address: string;
+  hours: Record<string, string>;
+  primaryCta: 'whatsapp' | 'phone' | 'email';
+  social: Record<string, string>;
+}
+
+const { businessName, phone, whatsapp, email, address, hours, primaryCta, social } = Astro.props;
+
+const whatsappUrl = whatsapp
+  ? `https://wa.me/${whatsapp.replace(/\D/g, '')}?text=Olá, vim pelo site e gostaria de mais informações.`
+  : null;
+
+const ctaHref = primaryCta === 'whatsapp' && whatsappUrl
+  ? whatsappUrl
+  : primaryCta === 'phone' && phone
+  ? `tel:${phone.replace(/\D/g, '')}`
+  : email
+  ? `mailto:${email}`
+  : '#';
+
+const ctaLabel = primaryCta === 'whatsapp'
+  ? 'Falar pelo WhatsApp'
+  : primaryCta === 'phone'
+  ? 'Ligar agora'
+  : 'Enviar e-mail';
+---
+
+<section id="contato" class="section bg-white">
+  <div class="container">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+      <!-- CTA -->
+      <div>
+        <p class="font-body text-sm font-semibold uppercase tracking-widest text-primary mb-2">
+          Vamos conversar
+        </p>
+        <h2 class="font-display text-display-lg font-bold uppercase text-secondary mb-6">
+          Entre em contato
+        </h2>
+        <p class="font-body text-gray-600 text-lg mb-8">
+          Agende seu horário ou tire dúvidas. Respondemos rápido.
+        </p>
+
+        <a
+          href={ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 bg-primary text-white font-body font-semibold text-lg px-8 py-4 rounded-btn transition-all duration-base hover:brightness-110 hover:-translate-y-0.5"
+        >
+          {ctaLabel}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+        <!-- Contatos secundários -->
+        <div class="mt-8 space-y-3">
+          {phone && (
+            <a href={`tel:${phone.replace(/\D/g,'')}`} class="flex gap-3 items-center font-body text-gray-600 hover:text-primary transition-colors">
+              <span aria-hidden="true">📞</span> {phone}
+            </a>
+          )}
+          {email && (
+            <a href={`mailto:${email}`} class="flex gap-3 items-center font-body text-gray-600 hover:text-primary transition-colors">
+              <span aria-hidden="true">✉️</span> {email}
+            </a>
+          )}
+          {address && (
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex gap-3 items-center font-body text-gray-600 hover:text-primary transition-colors"
+            >
+              <span aria-hidden="true">📍</span> {address}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Horários + redes -->
+      <div>
+        {Object.keys(hours).length > 0 && (
+          <div class="bg-gray-50 rounded-card p-8 mb-6">
+            <h3 class="font-display text-xl font-bold uppercase text-secondary mb-4">
+              Horário de funcionamento
+            </h3>
+            <dl class="space-y-2">
+              {Object.entries(hours).map(([day, time]) => (
+                <div class="flex justify-between font-body text-sm">
+                  <dt class="text-gray-500 capitalize">{day}</dt>
+                  <dd class="font-medium text-secondary">{time}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )}
+
+        {social?.instagram && (
+          <a
+            href={social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 font-body text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+          >
+            <span aria-hidden="true">📸</span> Instagram
+          </a>
+        )}
+      </div>
+
+    </div>
+  </div>
+</section>

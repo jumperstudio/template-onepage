@@ -1,0 +1,76 @@
+/* DS-02 Modern Local — tokens.css
+   NÃO ALTERAR. A IA aplica primary/secondary via tailwind.config.js.
+   Este arquivo define o sistema visual base do DS-02. */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+  /* Neutral scale */
+  --color-white:    #FFFFFF;
+  --color-gray-50:  #F7F7F7;
+  --color-gray-100: #EFEFEF;
+  --color-gray-200: #DEDEDE;
+  --color-gray-400: #9A9A9A;
+  --color-gray-600: #5A5A5A;
+  --color-gray-800: #2A2A2A;
+  --color-black:    #0D0D0D;
+
+  /* Layout */
+  --max-width: 72rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --section-padding: clamp(4rem, 8vw, 6rem);
+
+  /* Typography scale */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* Reset + base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: var(--text-base);
+  color: var(--color-gray-800);
+  background: var(--color-white);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Container padrão */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Seção padrão */
+.section {
+  padding-block: var(--section-padding);
+}

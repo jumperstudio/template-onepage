@@ -1074,13 +1074,13 @@ body.lightbox-open {
   flex: 0 0 auto;
   display: block;
   color: currentColor;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .contact-main-button__label {
   display: inline-flex;
-  min-height: 22px;
+  min-height: 24px;
   align-items: center;
   line-height: 1;
 }

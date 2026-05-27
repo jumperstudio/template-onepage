@@ -1072,7 +1072,9 @@ body.lightbox-open {
 .contact-main-button__icon {
   flex: 0 0 auto;
   color: currentColor;
-  transform: translateY(-0.075rem);
+  width: 18px;
+  height: 18px;
+  transform: none;
   transform-origin: 50% 50%;
 }
 

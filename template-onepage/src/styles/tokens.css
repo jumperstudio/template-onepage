@@ -1073,9 +1073,10 @@ body.lightbox-open {
 .contact-main-button__icon {
   flex: 0 0 auto;
   display: block;
-  color: currentColor;
   width: 24px;
   height: 24px;
+  object-fit: contain;
+  image-rendering: auto;
 }
 
 .contact-main-button__label {

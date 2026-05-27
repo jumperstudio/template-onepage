@@ -115,7 +115,7 @@ try {
   revealItems.forEach((el) => {
     ScrollTrigger.create({
       trigger: el,
-      start: 'top 85%',
+      start: 'top 92%',
       end: 'bottom 15%',
       onEnter: () => showWithReveal(el),
       onEnterBack: () => {
@@ -250,8 +250,8 @@ try {
         ease: 'power2.out',
         scrollTrigger: {
           trigger: section,
-          start: 'top 85%',
-          end: 'top 45%',
+          start: 'top 92%',
+          end: 'top 58%',
           scrub: 0.8,
         },
       }

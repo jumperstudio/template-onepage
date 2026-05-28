@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "client_id": "cli_NqAoveB",
+    "template": "onepage",
+    "design_system": "DS-02",
+    "font_pair": "modern-bold",
+    "primary_color": "#0A0A0A",
+    "secondary_color": "#0A0A0A",
+    "created_at": "2026-05-28",
+    "delivery_deadline": "2026-06-07",
+    "submission_id": "NqAoveB",
+    "form_id": "9qMBo1"
+  },
+  "business": {
+    "name": "",
+    "tagline": "",
+    "short_name": "",
+    "short_description": "",
+    "founded": null,
+    "city": "",
+    "neighborhood": "",
+    "operation_mode": "presencial"
+  },
+  "services": [],
+  "audience": {
+    "profile": "",
+    "differentials": [],
+    "what_we_dont_do": ""
+  },
+  "contact": {
+    "phone": "",
+    "whatsapp": "",
+    "email": "",
+    "address": "",
+    "hours": {},
+    "social": {
+      "instagram": ""
+    },
+    "primary_cta": "whatsapp"
+  },
+  "assets": {
+    "logo": "/assets/logo.svg",
+    "photos": []
+  },
+  "social_proof": {
+    "type": "testimonials",
+    "testimonials": [],
+    "numbers": [],
+    "process": [],
+    "faq": []
+  },
+  "seo": {
+    "keywords": [],
+    "locations": [],
+    "meta_description": ""
+  },
+  "references": {
+    "ref1": "",
+    "ref2": ""
+  },
+  "raw_social_proof": {
+    "testimonials_text": "",
+    "numbers_text": "",
+    "process_text": "",
+    "faq_text": ""
+  }
+}

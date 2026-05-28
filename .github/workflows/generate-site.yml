@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'clients/**/client.json'
+      - 'template-onepage/clients/**/client.json'
 
 jobs:
   generate-site:
@@ -18,39 +19,58 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Detectar client.json alterado
+      - name: Detectar estrutura do repositório e client.json
         id: detect
         run: |
-          # Pega o path do client.json que foi commitado
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'clients/.*/client.json' | head -1)
+          # Encontra o package.json para saber a raiz do template
+          if [ -f "package.json" ]; then
+            TEMPLATE_ROOT="."
+          elif [ -f "template-onepage/package.json" ]; then
+            TEMPLATE_ROOT="template-onepage"
+          else
+            echo "ERRO: package.json não encontrado"
+            find . -name "package.json" -not -path "*/node_modules/*" | head -5
+            exit 1
+          fi
+          echo "template_root=$TEMPLATE_ROOT" >> $GITHUB_OUTPUT
+          echo "Template root: $TEMPLATE_ROOT"
+
+          # Pega o client.json commitado
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'client\.json' | head -1)
           echo "client_path=$CHANGED" >> $GITHUB_OUTPUT
-          
-          # Extrai o client_id da pasta
-          CLIENT_ID=$(echo $CHANGED | cut -d'/' -f2)
+
+          # Extrai o client_id
+          CLIENT_ID=$(echo $CHANGED | grep -oP 'cli_[^/]+')
           echo "client_id=$CLIENT_ID" >> $GITHUB_OUTPUT
-          
-          echo "Cliente detectado: $CLIENT_ID"
+
+          echo "Cliente: $CLIENT_ID"
           echo "Arquivo: $CHANGED"
+
+      - name: Instalar dependências
+        run: |
+          cd ${{ steps.detect.outputs.template_root }}
+          npm install
 
       - name: Rodar cadeia de prompts via OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           CLIENT_PATH: ${{ steps.detect.outputs.client_path }}
           CLIENT_ID: ${{ steps.detect.outputs.client_id }}
-        run: node .github/scripts/generate-site.js
+          TEMPLATE_ROOT: ${{ steps.detect.outputs.template_root }}
+        run: |
+          cd ${{ steps.detect.outputs.template_root }}
+          node ../.github/scripts/generate-site.js
 
       - name: Commit do site gerado
         run: |
           git config --global user.name "jumper-bot"
           git config --global user.email "bot@jumper.studio"
-          git add src/
-          git add public/
-          
+
+          TEMPLATE_ROOT="${{ steps.detect.outputs.template_root }}"
           CLIENT_ID="${{ steps.detect.outputs.client_id }}"
-          
+
+          git add "$TEMPLATE_ROOT/src/" "$TEMPLATE_ROOT/public/" 2>/dev/null || true
+
           if git diff --staged --quiet; then
             echo "Nenhuma alteração para commitar"
           else

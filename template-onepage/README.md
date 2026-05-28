@@ -54,7 +54,8 @@ Campos vazios devem gerar omissão elegante da informação, não placeholders. 
 - `Marquee.astro`: esteira de serviços/localização
 - `Services.astro`: serviços do cliente
 - `About.astro`: posicionamento e diferenciais
-- `Testimonials.astro`: depoimentos
+- `SocialProof.astro`: depoimentos, números, processo ou FAQ
+- `Testimonials.astro`: versão legada de depoimentos
 - `Gallery.astro`: mosaico e lightbox
 - `ContactCTA.astro`: contato, canais e funcionamento
 - `Footer.astro`: rodapé institucional

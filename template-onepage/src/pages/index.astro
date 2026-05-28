@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
 import Services from '../components/Services.astro';
 import About from '../components/About.astro';
-import Testimonials from '../components/Testimonials.astro';
+import SocialProof from '../components/SocialProof.astro';
 import Gallery from '../components/Gallery.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import Footer from '../components/Footer.astro';
@@ -32,6 +32,14 @@ const marqueeWords = [
   ...data.services.slice(0, 4).map((s) => s.name),
   data.business.city || 'Brasil',
 ];
+
+const socialProof = data.social_proof || {
+  type: 'testimonials',
+  testimonials: data.assets.testimonials || [],
+  numbers: [],
+  process: [],
+  faq: [],
+};
 ---
 
 <Base
@@ -69,7 +77,13 @@ const marqueeWords = [
     photos={data.assets.photos}
   />
 
-  <Testimonials items={data.assets.testimonials} />
+  <SocialProof
+    type={socialProof.type}
+    testimonials={socialProof.testimonials}
+    numbers={socialProof.numbers}
+    process={socialProof.process}
+    faq={socialProof.faq}
+  />
 
   <Gallery photos={data.assets.photos} businessName={data.business.name} />
 

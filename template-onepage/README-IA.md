@@ -27,7 +27,7 @@ Quando um campo estiver vazio, a interface deve omitir o bloco correspondente de
 - `Marquee`
 - `Services`
 - `About`
-- `Testimonials`
+- `SocialProof`
 - `Gallery`
 - `ContactCTA`
 - `Footer`

@@ -401,6 +401,8 @@ button { background: none; border: 0; color: inherit; font: inherit; cursor: poi
 .reveal-mask {
   display: inline-block;
   overflow: hidden;
+  padding-block: 0.24em;
+  margin-block: -0.24em;
   vertical-align: bottom;
 }
 .reveal-mask > span {
@@ -1365,6 +1367,122 @@ body.lightbox-open {
   min-width: 0;
 }
 
+/* ─── SOCIAL PROOF VARIANTS ───────────────────────────────────────────── */
+.social-proof-numbers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: color-mix(in srgb, theme('colors.secondary') 12%, transparent);
+}
+
+.social-proof-stat {
+  display: grid;
+  min-height: 11rem;
+  place-items: center;
+  gap: 0.85rem;
+  padding: clamp(2rem, 5vw, 3.25rem);
+  background: theme('colors.cream');
+  text-align: center;
+}
+
+.social-proof-stat__value {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 8vw, 6.5rem);
+  line-height: 0.9;
+  color: theme('colors.primary');
+}
+
+.social-proof-stat__label {
+  max-width: 14rem;
+  color: color-mix(in srgb, theme('colors.secondary') 62%, transparent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.social-proof-process,
+.social-proof-faq {
+  border-top: 1px solid color-mix(in srgb, theme('colors.secondary') 15%, transparent);
+}
+
+.social-proof-step {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  padding: clamp(1.75rem, 4vw, 3rem) 0;
+  border-bottom: 1px solid color-mix(in srgb, theme('colors.secondary') 15%, transparent);
+}
+
+.social-proof-step__number {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  line-height: 0.9;
+  color: theme('colors.primary');
+}
+
+.social-proof-step__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.social-proof-step__description {
+  grid-column: 2;
+  max-width: 42rem;
+  color: color-mix(in srgb, theme('colors.secondary') 72%, transparent);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.social-proof-faq {
+  max-width: 58rem;
+}
+
+.social-proof-question {
+  border-bottom: 1px solid color-mix(in srgb, theme('colors.secondary') 15%, transparent);
+}
+
+.social-proof-question summary {
+  display: flex;
+  min-height: 5.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.social-proof-question summary::-webkit-details-marker {
+  display: none;
+}
+
+.social-proof-question svg {
+  flex: 0 0 auto;
+  color: theme('colors.primary');
+  transition: transform 420ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.social-proof-question[open] svg {
+  transform: rotate(45deg);
+}
+
+.social-proof-question p {
+  max-width: 44rem;
+  padding: 0 0 2rem;
+  color: color-mix(in srgb, theme('colors.secondary') 72%, transparent);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
 /* ─── FOOTER ───────────────────────────────────────────────────────────── */
 .footer-top-link {
   display: inline-flex;
@@ -1393,6 +1511,19 @@ body.lightbox-open {
 }
 
 @media (min-width: 768px) {
+  .social-proof-numbers {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .social-proof-step {
+    grid-template-columns: 4rem minmax(12rem, 0.38fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .social-proof-step__description {
+    grid-column: auto;
+  }
+
   .contact-row__value {
     overflow: hidden;
     text-overflow: ellipsis;

@@ -41,7 +41,7 @@ As cores do cliente entram em `tailwind.config.js`, mas precisam preservar contr
 | Marquee | Reforço de serviços/localização |
 | Services | Clareza da oferta |
 | About | Contexto e diferenciais |
-| Testimonials | Prova social |
+| SocialProof | Prova social flexível |
 | Gallery | Imagens variáveis com lightbox |
 | ContactCTA | Conversão e informações práticas |
 | Footer | Fechamento institucional |

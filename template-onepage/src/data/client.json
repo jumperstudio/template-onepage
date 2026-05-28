@@ -97,6 +97,32 @@
       }
     ]
   },
+  "social_proof": {
+    "type": "testimonials",
+    "testimonials": [
+      {
+        "name": "Fernanda R.",
+        "role": "Cliente desde 2022",
+        "text": "Fui pela primeira vez e já saí marcando o retorno. O diagnóstico capilar gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
+        "rating": 5
+      },
+      {
+        "name": "Carla M.",
+        "role": "Cliente desde 2021",
+        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar o fio.",
+        "rating": 5
+      },
+      {
+        "name": "Juliana P.",
+        "role": "Cliente desde 2023",
+        "text": "A progressiva durou muito mais que nas outras vezes. Equipe atenciosa, salão limpíssimo e bem decorado.",
+        "rating": 5
+      }
+    ],
+    "numbers": [],
+    "process": [],
+    "faq": []
+  },
   "seo": {
     "keywords": [
       "salão de beleza tijuca",

@@ -1,0 +1,59 @@
+name: Gerar Site do Cliente
+
+on:
+  push:
+    paths:
+      - 'clients/**/client.json'
+
+jobs:
+  generate-site:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Detectar client.json alterado
+        id: detect
+        run: |
+          # Pega o path do client.json que foi commitado
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'clients/.*/client.json' | head -1)
+          echo "client_path=$CHANGED" >> $GITHUB_OUTPUT
+          
+          # Extrai o client_id da pasta
+          CLIENT_ID=$(echo $CHANGED | cut -d'/' -f2)
+          echo "client_id=$CLIENT_ID" >> $GITHUB_OUTPUT
+          
+          echo "Cliente detectado: $CLIENT_ID"
+          echo "Arquivo: $CHANGED"
+
+      - name: Rodar cadeia de prompts via OpenAI
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CLIENT_PATH: ${{ steps.detect.outputs.client_path }}
+          CLIENT_ID: ${{ steps.detect.outputs.client_id }}
+        run: node .github/scripts/generate-site.js
+
+      - name: Commit do site gerado
+        run: |
+          git config --global user.name "jumper-bot"
+          git config --global user.email "bot@jumper.studio"
+          git add src/
+          git add public/
+          
+          CLIENT_ID="${{ steps.detect.outputs.client_id }}"
+          
+          if git diff --staged --quiet; then
+            echo "Nenhuma alteração para commitar"
+          else
+            git commit -m "feat: site gerado para $CLIENT_ID"
+            git push
+          fi

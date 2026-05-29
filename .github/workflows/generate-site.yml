@@ -13,36 +13,36 @@ jobs:
     steps:
       - name: Checkout repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Detectar estrutura do repositório e client.json
+      - name: Detectar estrutura e client.json
         id: detect
         run: |
-          # Encontra o package.json para saber a raiz do template
           if [ -f "package.json" ]; then
             TEMPLATE_ROOT="."
           elif [ -f "template-onepage/package.json" ]; then
             TEMPLATE_ROOT="template-onepage"
           else
             echo "ERRO: package.json não encontrado"
-            find . -name "package.json" -not -path "*/node_modules/*" | head -5
             exit 1
           fi
           echo "template_root=$TEMPLATE_ROOT" >> $GITHUB_OUTPUT
           echo "Template root: $TEMPLATE_ROOT"
 
-          # Pega o client.json commitado
           CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'client\.json' | head -1)
-          echo "client_path=$CHANGED" >> $GITHUB_OUTPUT
+          if [ -z "$CHANGED" ]; then
+            CHANGED=$(git show --name-only HEAD --format="" | grep 'client\.json' | head -1)
+          fi
 
-          # Extrai o client_id
+          echo "client_path=$CHANGED" >> $GITHUB_OUTPUT
           CLIENT_ID=$(echo $CHANGED | grep -oP 'cli_[^/]+')
           echo "client_id=$CLIENT_ID" >> $GITHUB_OUTPUT
-
           echo "Cliente: $CLIENT_ID"
           echo "Arquivo: $CHANGED"
 
@@ -51,7 +51,7 @@ jobs:
           cd ${{ steps.detect.outputs.template_root }}
           npm install
 
-      - name: Rodar cadeia de prompts via OpenAI
+      - name: Rodar geração do site via OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           CLIENT_PATH: ${{ steps.detect.outputs.client_path }}
@@ -65,12 +65,9 @@ jobs:
         run: |
           git config --global user.name "jumper-bot"
           git config --global user.email "bot@jumper.studio"
-
           TEMPLATE_ROOT="${{ steps.detect.outputs.template_root }}"
           CLIENT_ID="${{ steps.detect.outputs.client_id }}"
-
           git add "$TEMPLATE_ROOT/src/" "$TEMPLATE_ROOT/public/" 2>/dev/null || true
-
           if git diff --staged --quiet; then
             echo "Nenhuma alteração para commitar"
           else

@@ -15,7 +15,7 @@ if (!OPENAI_API_KEY || !CLIENT_PATH) {
 }
 
 // Lê o client.json do cliente
-const clientJson = JSON.parse(fs.readFileSync(CLIENT_PATH, 'utf-8'));
+const clientJson = JSON.parse(fs.readFileSync(`../${CLIENT_PATH}`, 'utf-8'));
 console.log(`✅ client.json carregado: ${clientJson.business?.name || CLIENT_ID}`);
 
 // Lê os arquivos do template

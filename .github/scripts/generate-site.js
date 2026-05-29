@@ -18,10 +18,59 @@ if (!OPENAI_API_KEY || !CLIENT_PATH) {
 const clientJson = JSON.parse(fs.readFileSync(`../${CLIENT_PATH}`, 'utf-8'));
 console.log(`✅ client.json carregado: ${clientJson.business?.name || CLIENT_ID}`);
 
-// ─── FIX: copia o client.json do cliente para src/data/client.json ────────────
-// Sem isso, os componentes continuam lendo os dados do cliente anterior
+// ─── FIX 1: copia o client.json do cliente para src/data/client.json ─────────
 fs.writeFileSync('src/data/client.json', JSON.stringify(clientJson, null, 2));
 console.log('✅ src/data/client.json atualizado com dados do cliente');
+
+// ─── FIX 2: normalizar operation_mode (UUID → texto legível) ─────────────────
+const OPERATION_MODE_MAP = {
+  'presencial': 'presencial',
+  'online':     'online',
+  'hibrido':    'híbrido',
+  'híbrido':    'híbrido',
+};
+if (Array.isArray(clientJson.business?.operation_mode)) {
+  // Se vier como array de UUIDs ou strings, pega o primeiro e tenta mapear
+  const raw = clientJson.business.operation_mode[0] || '';
+  clientJson.business.operation_mode = OPERATION_MODE_MAP[raw.toLowerCase()] || 'presencial';
+  console.log(`✅ operation_mode normalizado: "${clientJson.business.operation_mode}"`);
+}
+
+// ─── FIX 3: parsear raw_social_proof.process_text → social_proof.process ─────
+if (clientJson.raw_social_proof?.process_text && clientJson.social_proof?.process?.length === 0) {
+  const lines = clientJson.raw_social_proof.process_text
+    .split('\n\n')
+    .map(block => block.trim())
+    .filter(Boolean);
+
+  const steps = lines.map(block => {
+    const [title, ...rest] = block.split('\n');
+    return {
+      title: title.trim(),
+      description: rest.join(' ').trim(),
+    };
+  }).filter(s => s.title);
+
+  if (steps.length > 0) {
+    clientJson.social_proof.type = 'process';
+    clientJson.social_proof.process = steps;
+    console.log(`✅ social_proof.process populado: ${steps.length} etapas`);
+  }
+}
+
+// ─── FIX 4: horário vazio → fallback padrão ───────────────────────────────────
+if (!clientJson.contact?.hours || Object.keys(clientJson.contact.hours).length === 0) {
+  clientJson.contact.hours = {
+    'Seg a Sex': '09:00 – 18:00',
+    'Sábado':    'Sob consulta',
+    'Domingo':   'Fechado',
+  };
+  console.log('✅ contact.hours: fallback padrão aplicado');
+}
+
+// Grava o client.json normalizado de volta para src/data/
+fs.writeFileSync('src/data/client.json', JSON.stringify(clientJson, null, 2));
+console.log('✅ src/data/client.json regravado com dados normalizados');
 
 // Lê os arquivos do template
 const readFile = (p) => {
@@ -102,15 +151,13 @@ Retorne exatamente este JSON (sem nenhum texto fora dele):
 }`;
 
   const raw = await callOpenAI(system, user);
-  
-  // Remove markdown se vier com blocos de código
   const clean = raw.replace(/```json|```/g, '').trim();
   const content = JSON.parse(clean);
-  
+
   fs.writeFileSync('src/data/content.json', JSON.stringify(content, null, 2));
   console.log('✅ content.json gerado');
   console.log(`   Headline: "${content.hero.headline}"`);
-  
+
   return content;
 }
 
@@ -137,11 +184,11 @@ Retorne exatamente este JSON:
   const raw = await callOpenAI(system, user);
   const clean = raw.replace(/```json|```/g, '').trim();
   const seo = JSON.parse(clean);
-  
+
   console.log('✅ SEO gerado');
   console.log(`   Title (${seo.title.length} chars): "${seo.title}"`);
   console.log(`   Meta (${seo.meta_description.length} chars)`);
-  
+
   return seo;
 }
 
@@ -178,10 +225,8 @@ Regras:
 - Retorne o arquivo completo atualizado`;
 
   const updated = await callOpenAI(system, user);
-  
-  // Remove markdown se vier com blocos de código
   const clean = updated.replace(/```astro|```typescript|```/g, '').trim();
-  
+
   fs.writeFileSync('src/pages/index.astro', clean);
   console.log('✅ index.astro atualizado');
 }
@@ -191,17 +236,24 @@ async function runStylePrompt() {
   console.log('\n🎨 P4 — Aplicando cores...');
 
   const tailwindConfig = readFile('tailwind.config.js');
-  
-  const primary = clientJson.meta?.primary_color || '#0A0A0A';
-  const secondary = clientJson.meta?.secondary_color || '#0A0A0A';
 
-  // Aplica diretamente sem chamar a API — é só substituição de cores
-  const updated = tailwindConfig
-    .replace(/primary:\s*['"][^'"]+['"]/, `primary:   '${primary}'`)
-    .replace(/secondary:\s*['"][^'"]+['"]/, `secondary: '${secondary}'`);
+  const primary   = clientJson.meta?.primary_color   || '#0A0A0A';
+  const secondary = clientJson.meta?.secondary_color || '#C9A84C';
+
+  // ─── FIX 5: regex mais robusto para substituir cores no tailwind.config.js ──
+  // Cobre: primary: '#fff', primary: "#fff", primary:   '#fff' (espaços variáveis)
+  let updated = tailwindConfig
+    .replace(/(primary\s*:\s*)(['"])[^'"]+(['"])/,   `$1$2${primary}$3`)
+    .replace(/(secondary\s*:\s*)(['"])[^'"]+(['"])/,  `$1$2${secondary}$3`);
+
+  // Fallback: se o regex não encontrou nada, loga aviso
+  if (updated === tailwindConfig) {
+    console.warn('⚠️  Cores não substituídas — padrão primary/secondary não encontrado no tailwind.config.js');
+  } else {
+    console.log(`✅ Cores aplicadas: primary=${primary}, secondary=${secondary}`);
+  }
 
   fs.writeFileSync('tailwind.config.js', updated);
-  console.log(`✅ Cores aplicadas: primary=${primary}, secondary=${secondary}`);
 }
 
 // ─── PROMPT 5: ROBOTS + SITEMAP ──────────────────────────────────────────────
@@ -210,11 +262,11 @@ async function runSeoFiles() {
 
   const domain = clientJson.meta?.domain || 'https://exemplo.com.br';
 
-  fs.writeFileSync('public/robots.txt', 
+  fs.writeFileSync('public/robots.txt',
     `User-agent: *\nAllow: /\nSitemap: ${domain}/sitemap.xml\n`
   );
 
-  fs.writeFileSync('public/sitemap.xml', 
+  fs.writeFileSync('public/sitemap.xml',
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
   <url>

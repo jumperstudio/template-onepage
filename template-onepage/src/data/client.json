@@ -20,9 +20,7 @@
     "founded": 2017,
     "city": "São Paulo",
     "neighborhood": "Itaim Bibi",
-    "operation_mode": [
-      "b8f19a62-128f-42a5-8a4a-793ab7d2d1dc"
-    ]
+    "operation_mode": "presencial"
   },
   "services": [
     {
@@ -55,7 +53,11 @@
     "whatsapp": "11976543210",
     "email": "contato@fariaelima.adv.br",
     "address": "Av. Brigadeiro Faria Lima, 1811 — Itaim Bibi, São Paulo/SP",
-    "hours": {},
+    "hours": {
+      "Seg a Sex": "09:00 – 18:00",
+      "Sábado": "Sob consulta",
+      "Domingo": "Fechado"
+    },
     "social": {
       "instagram": "https://instagram.com/fariaelima.adv"
     },
@@ -74,10 +76,27 @@
     "photos_are_placeholder": true
   },
   "social_proof": {
-    "type": "testimonials",
+    "type": "process",
     "testimonials": [],
     "numbers": [],
-    "process": [],
+    "process": [
+      {
+        "title": "Consulta inicial",
+        "description": "Reunião de 30 minutos para entender sua demanda. Sem custo."
+      },
+      {
+        "title": "Proposta clara",
+        "description": "Enviamos proposta com escopo e honorários fixos em até 24 horas."
+      },
+      {
+        "title": "Execução direta",
+        "description": "O sócio responsável cuida pessoalmente do seu caso do início ao fim."
+      },
+      {
+        "title": "Acompanhamento contínuo",
+        "description": "Acesso direto por WhatsApp para dúvidas durante toda a prestação de serviço."
+      }
+    ],
     "faq": []
   },
   "seo": {

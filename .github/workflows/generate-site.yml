@@ -1,10 +1,15 @@
 name: Gerar Site do Cliente
-
 on:
   push:
     paths:
       - 'clients/**/client.json'
       - 'template-onepage/clients/**/client.json'
+  workflow_dispatch:
+    inputs:
+      client_path:
+        description: 'Caminho do client.json (ex: clients/cli_PRAl69d/client.json)'
+        required: true
+        default: 'clients/cli_PRAl69d/client.json'
 
 jobs:
   generate-site:
@@ -35,9 +40,16 @@ jobs:
           echo "template_root=$TEMPLATE_ROOT" >> $GITHUB_OUTPUT
           echo "Template root: $TEMPLATE_ROOT"
 
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'client\.json' | head -1)
-          if [ -z "$CHANGED" ]; then
-            CHANGED=$(git show --name-only HEAD --format="" | grep 'client\.json' | head -1)
+          # Se veio de workflow_dispatch, usa o input diretamente
+          if [ -n "${{ github.event.inputs.client_path }}" ]; then
+            CHANGED="${{ github.event.inputs.client_path }}"
+            echo "Modo: dispatch manual"
+          else
+            CHANGED=$(git diff --name-only HEAD~1 HEAD | grep 'client\.json' | head -1)
+            if [ -z "$CHANGED" ]; then
+              CHANGED=$(git show --name-only HEAD --format="" | grep 'client\.json' | head -1)
+            fi
+            echo "Modo: push automático"
           fi
 
           echo "client_path=$CHANGED" >> $GITHUB_OUTPUT

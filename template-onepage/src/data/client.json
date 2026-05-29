@@ -1,137 +1,98 @@
 {
   "meta": {
-    "client_id": "cli_exemplo_001",
+    "client_id": "cli_PRAl69d",
     "template": "onepage",
     "design_system": "DS-02",
     "font_pair": "modern-bold",
-    "primary_color": "#FF4D2E",
-    "secondary_color": "#0A0A0A",
-    "created_at": "2026-05-27",
-    "delivery_deadline": "2026-06-05"
+    "primary_color": "#1C2B4A",
+    "secondary_color": "#C9A84C",
+    "created_at": "2026-05-29",
+    "delivery_deadline": "2026-06-08",
+    "submission_id": "PRAl69d",
+    "form_id": "9qMBo1",
+    "photos_are_placeholder": true
   },
   "business": {
-    "name": "Salão Bella Vita",
-    "tagline": "Corte, cor e cuidado em um só lugar",
-    "short_name": "Bella Vita",
-    "short_description": "Salão de bairro com método de zona sul. Análise pessoal, produtos premium e agendamento que respeita seu tempo.",
-    "founded": 2018,
-    "city": "Rio de Janeiro",
-    "neighborhood": "Tijuca",
-    "operation_mode": "presencial"
+    "name": "Faria & Lima Advocacia",
+    "tagline": "Advocacia empresarial para startups e pequenas empresas que precisam de segurança jurídica",
+    "short_name": "Faria & Lima",
+    "short_description": "",
+    "founded": 2017,
+    "city": "São Paulo",
+    "neighborhood": "Itaim Bibi",
+    "operation_mode": [
+      "b8f19a62-128f-42a5-8a4a-793ab7d2d1dc"
+    ]
   },
   "services": [
     {
-      "name": "Corte feminino",
-      "description": "Análise de rosto, textura e estilo de vida. Corte que cresce bem e pede pouco salão.",
-      "target": "Mulheres que querem mudança sem erro"
+      "name": "Contratos empresariais",
+      "description": "Elaboração e revisão de contratos societários, comerciais e trabalhistas. Para empresas que precisam de segurança jurídica nas suas operações.",
+      "target": ""
     },
     {
-      "name": "Coloração",
-      "description": "Sem amônia. Mechas, ombré, balayage e luzes feitos por colorista certificada Wella.",
-      "target": "Quem quer cor sem comprometer o fio"
+      "name": "Assessoria para startups",
+      "description": "Constituição de empresa, acordo de sócios e rodadas de investimento. Para fundadores que querem crescer sem surpresas jurídicas.",
+      "target": ""
     },
     {
-      "name": "Tratamento capilar",
-      "description": "Hidratação, reconstrução e cronograma capilar para fios secos, danificados ou com queda.",
-      "target": "Cabelos que precisam de cuidado"
-    },
-    {
-      "name": "Escova progressiva",
-      "description": "Fórmula sem formol. Resultado natural, brilho intenso, duração de 4 a 6 meses.",
-      "target": "Quem cansou da prancha"
+      "name": "Consultoria trabalhista",
+      "description": "Gestão de riscos trabalhistas e defesa em reclamações. Para empresas com equipe contratada que precisam de proteção.",
+      "target": ""
     }
   ],
   "audience": {
-    "profile": "Mulheres entre 25 e 55 anos da Tijuca e Vila Isabel que querem um salão de bairro com nível de zona sul.",
+    "profile": "Sócios e gestores de pequenas empresas e startups em São Paulo que precisam de segurança jurídica sem pagar os preços dos grandes escritórios",
     "differentials": [
-      "Agendamento online com confirmação em até 1 hora",
-      "Diagnóstico capilar gratuito na primeira visita",
-      "Apenas produtos profissionais L'Oréal e Wella"
+      "1. Atendimento direto com sócio — sem estagiários ou intermediários",
+      "2. Honorários fixos e transparentes — sem surpresas na fatura",
+      "3. Resposta em até 4 horas em dias úteis"
     ],
-    "what_we_dont_do": "Não fazemos extensões de cabelo nem tratamentos masculinos"
+    "what_we_dont_do": "Não atendemos pessoas físicas em causas cíveis ou criminais"
   },
   "contact": {
-    "phone": "(21) 99999-0000",
-    "whatsapp": "5521999990000",
-    "email": "contato@bellavita.com.br",
-    "address": "Rua Conde de Bonfim, 123 — Tijuca, Rio de Janeiro/RJ",
-    "hours": {
-      "Seg a Sex": "09:00 – 19:00",
-      "Sábado": "09:00 – 17:00",
-      "Domingo": "Fechado"
-    },
+    "phone": "",
+    "whatsapp": "11976543210",
+    "email": "contato@fariaelima.adv.br",
+    "address": "Av. Brigadeiro Faria Lima, 1811 — Itaim Bibi, São Paulo/SP",
+    "hours": {},
     "social": {
-      "instagram": "https://instagram.com/salaobellavita",
-      "facebook": ""
+      "instagram": "https://instagram.com/fariaelima.adv"
     },
     "primary_cta": "whatsapp"
   },
   "assets": {
-    "logo": "/assets/logo.svg",
+    "logo": null,
     "photos": [
-      "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80",
-      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80",
-      "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1600&q=80",
-      "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=1600&q=80",
-      "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1600&q=80",
-      "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1600&q=80"
+      "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3182746/pexels-photo-3182746.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=1880"
     ],
-    "testimonials": [
-      {
-        "name": "Fernanda R.",
-        "role": "Cliente desde 2022",
-        "text": "Fui pela primeira vez e já saí marcando o retorno. O diagnóstico gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
-        "rating": 5
-      },
-      {
-        "name": "Carla M.",
-        "role": "Cliente desde 2021",
-        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar o fio.",
-        "rating": 5
-      },
-      {
-        "name": "Juliana P.",
-        "role": "Cliente desde 2023",
-        "text": "A progressiva durou muito mais que nas outras vezes. Equipe atenciosa, salão limpíssimo e bem decorado.",
-        "rating": 5
-      }
-    ]
+    "photos_are_placeholder": true
   },
   "social_proof": {
     "type": "testimonials",
-    "testimonials": [
-      {
-        "name": "Fernanda R.",
-        "role": "Cliente desde 2022",
-        "text": "Fui pela primeira vez e já saí marcando o retorno. O diagnóstico capilar gratuito fez toda a diferença — meu cabelo nunca ficou tão saudável.",
-        "rating": 5
-      },
-      {
-        "name": "Carla M.",
-        "role": "Cliente desde 2021",
-        "text": "Agendei pelo WhatsApp e fui atendida no horário marcado. Raro num salão. Coloração ficou perfeita, sem danificar o fio.",
-        "rating": 5
-      },
-      {
-        "name": "Juliana P.",
-        "role": "Cliente desde 2023",
-        "text": "A progressiva durou muito mais que nas outras vezes. Equipe atenciosa, salão limpíssimo e bem decorado.",
-        "rating": 5
-      }
-    ],
+    "testimonials": [],
     "numbers": [],
     "process": [],
     "faq": []
   },
   "seo": {
-    "keywords": [
-      "salão de beleza tijuca",
-      "coloração tijuca rio de janeiro",
-      "corte feminino tijuca",
-      "escova progressiva tijuca",
-      "salão vila isabel"
-    ],
-    "locations": ["Tijuca", "Vila Isabel", "Grajaú", "Maracanã"],
-    "meta_description": "Salão Bella Vita na Tijuca — corte, coloração e tratamento capilar com agendamento online. Diagnóstico gratuito na primeira visita."
+    "keywords": [],
+    "locations": [],
+    "meta_description": ""
+  },
+  "references": {
+    "ref1": "",
+    "ref2": ""
+  },
+  "raw_social_proof": {
+    "testimonials_text": "",
+    "numbers_text": "",
+    "process_text": "Consulta inicial\nReunião de 30 minutos para entender sua demanda. Sem custo.\n\nProposta clara\nEnviamos proposta com escopo e honorários fixos em até 24 horas.\n\nExecução direta\nO sócio responsável cuida pessoalmente do seu caso do início ao fim.\n\nAcompanhamento contínuo\nAcesso direto por WhatsApp para dúvidas durante toda a prestação de serviço.",
+    "faq_text": ""
   }
 }

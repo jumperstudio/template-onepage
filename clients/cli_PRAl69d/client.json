@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "client_id": "cli_PRAl69d",
+    "template": "onepage",
+    "design_system": "DS-02",
+    "font_pair": "modern-bold",
+    "primary_color": "#1C2B4A",
+    "secondary_color": "#C9A84C",
+    "created_at": "2026-05-29",
+    "delivery_deadline": "2026-06-08",
+    "submission_id": "PRAl69d",
+    "form_id": "9qMBo1",
+    "photos_are_placeholder": true
+  },
+  "business": {
+    "name": "Faria & Lima Advocacia",
+    "tagline": "Advocacia empresarial para startups e pequenas empresas que precisam de segurança jurídica",
+    "short_name": "Faria & Lima",
+    "short_description": "",
+    "founded": 2017,
+    "city": "São Paulo",
+    "neighborhood": "Itaim Bibi",
+    "operation_mode": [
+      "b8f19a62-128f-42a5-8a4a-793ab7d2d1dc"
+    ]
+  },
+  "services": [
+    {
+      "name": "Contratos empresariais",
+      "description": "Elaboração e revisão de contratos societários, comerciais e trabalhistas. Para empresas que precisam de segurança jurídica nas suas operações.",
+      "target": ""
+    },
+    {
+      "name": "Assessoria para startups",
+      "description": "Constituição de empresa, acordo de sócios e rodadas de investimento. Para fundadores que querem crescer sem surpresas jurídicas.",
+      "target": ""
+    },
+    {
+      "name": "Consultoria trabalhista",
+      "description": "Gestão de riscos trabalhistas e defesa em reclamações. Para empresas com equipe contratada que precisam de proteção.",
+      "target": ""
+    }
+  ],
+  "audience": {
+    "profile": "Sócios e gestores de pequenas empresas e startups em São Paulo que precisam de segurança jurídica sem pagar os preços dos grandes escritórios",
+    "differentials": [
+      "1. Atendimento direto com sócio — sem estagiários ou intermediários",
+      "2. Honorários fixos e transparentes — sem surpresas na fatura",
+      "3. Resposta em até 4 horas em dias úteis"
+    ],
+    "what_we_dont_do": "Não atendemos pessoas físicas em causas cíveis ou criminais"
+  },
+  "contact": {
+    "phone": "",
+    "whatsapp": "11976543210",
+    "email": "contato@fariaelima.adv.br",
+    "address": "Av. Brigadeiro Faria Lima, 1811 — Itaim Bibi, São Paulo/SP",
+    "hours": {},
+    "social": {
+      "instagram": "https://instagram.com/fariaelima.adv"
+    },
+    "primary_cta": "whatsapp"
+  },
+  "assets": {
+    "logo": null,
+    "photos": [
+      "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3182746/pexels-photo-3182746.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1880",
+      "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=1880"
+    ],
+    "photos_are_placeholder": true
+  },
+  "social_proof": {
+    "type": "testimonials",
+    "testimonials": [],
+    "numbers": [],
+    "process": [],
+    "faq": []
+  },
+  "seo": {
+    "keywords": [],
+    "locations": [],
+    "meta_description": ""
+  },
+  "references": {
+    "ref1": "",
+    "ref2": ""
+  },
+  "raw_social_proof": {
+    "testimonials_text": "",
+    "numbers_text": "",
+    "process_text": "Consulta inicial\nReunião de 30 minutos para entender sua demanda. Sem custo.\n\nProposta clara\nEnviamos proposta com escopo e honorários fixos em até 24 horas.\n\nExecução direta\nO sócio responsável cuida pessoalmente do seu caso do início ao fim.\n\nAcompanhamento contínuo\nAcesso direto por WhatsApp para dúvidas durante toda a prestação de serviço.",
+    "faq_text": ""
+  }
+}

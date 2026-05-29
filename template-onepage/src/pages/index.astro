@@ -11,6 +11,7 @@ import Footer from '../components/Footer.astro';
 import { getEmailUrl, getPhoneUrl, getWhatsappUrl } from '../lib/links';
 
 import data from '../data/client.json';
+import content from '../data/content.json';
 
 const whatsappUrl = getWhatsappUrl(data.contact.whatsapp);
 const phoneUrl = getPhoneUrl(data.contact.phone);
@@ -26,7 +27,7 @@ const ctaLabel = data.contact.primary_cta === 'whatsapp'
   ? 'Ligar agora'
   : 'Entrar em contato';
 
-const pageTitle = `${data.business.name} — ${data.business.tagline}`;
+const pageTitle = "Faria & Lima — Itaim Bibi, São Paulo | Advocacia Empresarial";
 
 const marqueeWords = [
   ...data.services.slice(0, 4).map((s) => s.name),
@@ -54,7 +55,7 @@ const socialProof = data.social_proof || {
 
   <Hero
     businessName={data.business.name}
-    tagline={data.business.tagline}
+    tagline={content.hero.headline}
     shortName={data.business.short_name}
     ctaLabel={ctaLabel}
     ctaHref={ctaHref}
@@ -63,16 +64,17 @@ const socialProof = data.social_proof || {
     neighborhood={data.business.neighborhood}
     founded={data.business.founded}
     shortDescription={data.business.short_description}
+    logo={data.assets.logo}
   />
 
   <Marquee words={marqueeWords} variant="light" />
 
-  <Services items={data.services} ctaHref={ctaHref} ctaLabel={ctaLabel} />
+  <Services items={data.services} ctaHref={ctaHref} ctaLabel={ctaLabel} subtitle={content.services_intro} />
 
   <About
     businessName={data.business.name}
     founded={data.business.founded}
-    profile={data.audience.profile}
+    profile={content.about_text}
     differentials={data.audience.differentials}
     photos={data.assets.photos}
   />

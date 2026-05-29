@@ -18,6 +18,11 @@ if (!OPENAI_API_KEY || !CLIENT_PATH) {
 const clientJson = JSON.parse(fs.readFileSync(`../${CLIENT_PATH}`, 'utf-8'));
 console.log(`✅ client.json carregado: ${clientJson.business?.name || CLIENT_ID}`);
 
+// ─── FIX: copia o client.json do cliente para src/data/client.json ────────────
+// Sem isso, os componentes continuam lendo os dados do cliente anterior
+fs.writeFileSync('src/data/client.json', JSON.stringify(clientJson, null, 2));
+console.log('✅ src/data/client.json atualizado com dados do cliente');
+
 // Lê os arquivos do template
 const readFile = (p) => {
   try { return fs.readFileSync(p, 'utf-8'); }
